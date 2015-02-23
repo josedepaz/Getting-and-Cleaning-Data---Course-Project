@@ -1,6 +1,8 @@
 #Course Project
 
-Script that contains the steps to create tidy data from raw data.
+To reproduce this project is necessary unzip the getdata-projectfiles-UCI HAR Dataset.zip file and copy the UCI HAR Dataset folder to the working directory.
+
+run_analysis.R is the script that contains the steps to create tidy data from raw data.
 
 The five steps are:
 
@@ -16,7 +18,7 @@ The five steps are:
 library(dplyr)
 ```
 
-#STEP 1
+##STEP 1
 
 * Load the data of the subject_train and subject_test and then merge the data in subject_all dataframe.
 
@@ -42,7 +44,7 @@ y_test <- read.table("UCI HAR Dataset/test/y_test.txt")
 y_all <- rbind(y_train, y_test)
 ```
 
-#STEP 2
+##STEP 2
 
 * Load de features data  and find only the rows that contains mean() or std(), then load only the data of the columns that exists in the features dataframe, in de x_all dataframe.
 
@@ -53,7 +55,7 @@ x_all <- x_all[,features$V1]
 ncol(x_all);
 ```
 
-#STEP 3
+##STEP 3
 
 * Load and merge the data of activity_labels with the y_all dataframe, and next, merge the second column that contains the activity names with the x_all and subject_all dataframes.
 
@@ -64,7 +66,7 @@ activity_names <- inner_join(y_all, activity_labels)
 data <- cbind(x_all, activity_names$V2, subject_all)
 ```
 
-#STEP 4
+##STEP 4
 
 * Fix the names of the dataset, setting the names of features, activity and subject columns.
 
@@ -72,7 +74,7 @@ data <- cbind(x_all, activity_names$V2, subject_all)
 names(data) <- c(as.character(features$V2), "activity", "subject")
 ```
 
-#STEP 5
+##STEP 5
 
 * Create the final data, grupping the data by activity and subject, and calculating the mean with the summarise function.
 
